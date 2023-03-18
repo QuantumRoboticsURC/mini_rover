@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="model" default="$(find mr_description)/urdf/mr.xacro"/>
+
+  <arg name="rvizconfig" default="$(find mr_description)/config/mr_urdf.rviz"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
+  
+  <!-- Show in Rviz   -->
+  <node name="rviz" pkg="rviz" args="-d $(arg rvizconfig)" type="rviz" required="true"/>
+
+</launch>

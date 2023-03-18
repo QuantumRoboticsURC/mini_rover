@@ -1,0 +1,92 @@
+<?xml version="1.0" ?>
+<robot name="mr" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<transmission name="swerve_front_right_link_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="swerve_front_right_link">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="swerve_front_right_link_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="wheel_front_right_link_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="wheel_front_right_link">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="wheel_front_right_link_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="swerve_back_right_link_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="swerve_back_right_link">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="swerve_back_right_link_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="wheel_back_right_link_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="wheel_back_right_link">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="wheel_back_right_link_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="swerve_back_left_link_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="swerve_back_left_link">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="swerve_back_left_link_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="wheel_back_left_link_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="wheel_back_left_link">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="wheel_back_left_link_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="swerve_front_left_link_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="swerve_front_left_link">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="swerve_front_left_link_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="wheel_front_left_link_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="wheel_front_left_link">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="wheel_front_left_link_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+</robot>

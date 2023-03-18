@@ -1,0 +1,417 @@
+<?xml version="1.0" ?>
+<robot name="mr" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find mr_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find mr_description)/urdf/mr.trans" />
+<xacro:include filename="$(find mr_description)/urdf/mr.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.024026657884178255 -0.0006258179246740081 0.20670151360258557" rpy="0 0 0"/>
+    <mass value="21.35468957671006"/>
+    <inertia ixx="0.66684" iyy="0.554551" izz="1.15912" ixy="-0.003904" iyz="0.001173" ixz="-0.011842"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="gps_frame_1">
+  <inertial>
+    <origin xyz="0.04203771345163801 -0.04450004444313828 -0.032741799072665945" rpy="0 0 0"/>
+    <mass value="0.5490777887987831"/>
+    <inertia ixx="0.000171" iyy="0.000157" izz="0.000284" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.19102 0.078471 -0.310862" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/gps_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.19102 0.078471 -0.310862" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/gps_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="imu_frame_1">
+  <inertial>
+    <origin xyz="-0.00045074052321916747 -6.454628720427638e-05 0.0010066891826769897" rpy="0 0 0"/>
+    <mass value="0.0068771582800528615"/>
+    <inertia ixx="0.0" iyy="0.0" izz="1e-06" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.167686 -0.023354 -0.183862" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/imu_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.167686 -0.023354 -0.183862" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/imu_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="laser_frame_1">
+  <inertial>
+    <origin xyz="0.0004996109498802137 4.489669068637181e-07 9.742873197104984e-08" rpy="0 0 0"/>
+    <mass value="0.00015413438956675583"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.234807 -0.025936 -0.233538" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/laser_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.234807 -0.025936 -0.233538" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/laser_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="odom_frame_1">
+  <inertial>
+    <origin xyz="0.0005000940787980579 3.9197321903333346e-07 3.336085294958213e-07" rpy="0 0 0"/>
+    <mass value="0.00015413438956675583"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.222149 -0.000936 -0.217362" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/odom_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.222149 -0.000936 -0.217362" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/odom_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="swerve_front_right_frame_1">
+  <inertial>
+    <origin xyz="0.0010343956323994319 0.018975093583987912 -0.02779662916861418" rpy="0 0 0"/>
+    <mass value="1.0189004950565936"/>
+    <inertia ixx="0.002056" iyy="0.001238" izz="0.001104" ixy="0.0" iyz="-0.000503" ixz="3.9e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.269529 0.278957 -0.142207" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/swerve_front_right_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.269529 0.278957 -0.142207" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/swerve_front_right_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wheel_front_right_frame_1">
+  <inertial>
+    <origin xyz="1.362369520530038e-07 0.03942350115985577 -7.786926539653238e-06" rpy="0 0 0"/>
+    <mass value="0.9174820903948062"/>
+    <inertia ixx="0.001993" iyy="0.002484" izz="0.001993" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.26953 0.328957 -0.062207" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/wheel_front_right_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.26953 0.328957 -0.062207" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/wheel_front_right_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="swerve_back_right_frame_1">
+  <inertial>
+    <origin xyz="0.0010344132531723282 0.01897509358415106 -0.027797551125660097" rpy="0 0 0"/>
+    <mass value="1.0189004950565936"/>
+    <inertia ixx="0.002056" iyy="0.001238" izz="0.001104" ixy="0.0" iyz="-0.000503" ixz="3.9e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.269794 0.278957 -0.142203" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/swerve_back_right_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.269794 0.278957 -0.142203" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/swerve_back_right_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wheel_back_right_frame_1">
+  <inertial>
+    <origin xyz="1.538577255044693e-07 0.0394235011600188 -8.708883585693827e-06" rpy="0 0 0"/>
+    <mass value="0.9174820903948062"/>
+    <inertia ixx="0.001993" iyy="0.002484" izz="0.001993" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.269793 0.328957 -0.062203" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/wheel_back_right_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.269793 0.328957 -0.062203" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/wheel_back_right_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="swerve_back_left_frame_1">
+  <inertial>
+    <origin xyz="-0.0010334680806184937 -0.018975196395395133 -0.02779756999752095" rpy="0 0 0"/>
+    <mass value="1.0189004950565936"/>
+    <inertia ixx="0.002056" iyy="0.001238" izz="0.001104" ixy="0.0" iyz="0.000503" ixz="-3.9e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.269794 -0.28083 -0.142203" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/swerve_back_left_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.269794 -0.28083 -0.142203" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/swerve_back_left_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wheel_back_left_frame_1">
+  <inertial>
+    <origin xyz="-2.5570862910440084e-07 -0.03942360397126338 -8.708887329546278e-06" rpy="0 0 0"/>
+    <mass value="0.9174820903948062"/>
+    <inertia ixx="0.001993" iyy="0.002484" izz="0.001993" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.269793 -0.33083 -0.062203" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/wheel_back_left_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.269793 -0.33083 -0.062203" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/wheel_back_left_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="swerve_front_left_frame_1">
+  <inertial>
+    <origin xyz="-0.001033485701390724 -0.018975196395395466 -0.027796648039575877" rpy="0 0 0"/>
+    <mass value="1.0189004950565936"/>
+    <inertia ixx="0.002056" iyy="0.001238" izz="0.001104" ixy="0.0" iyz="0.000503" ixz="-3.9e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.269529 -0.28083 -0.142207" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/swerve_front_left_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.269529 -0.28083 -0.142207" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/swerve_front_left_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wheel_front_left_frame_1">
+  <inertial>
+    <origin xyz="-2.733294070522696e-07 -0.03942360397126321 -7.786929384752395e-06" rpy="0 0 0"/>
+    <mass value="0.9174820903948062"/>
+    <inertia ixx="0.001993" iyy="0.002484" izz="0.001993" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.26953 -0.33083 -0.062207" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/wheel_front_left_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.26953 -0.33083 -0.062207" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mr_description/meshes/wheel_front_left_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="gps_link" type="fixed">
+  <origin xyz="-0.19102 -0.078471 0.310862" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="gps_frame_1"/>
+</joint>
+
+<joint name="imu_link" type="fixed">
+  <origin xyz="-0.167686 0.023354 0.183862" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="imu_frame_1"/>
+</joint>
+
+<joint name="laser_link" type="fixed">
+  <origin xyz="0.234807 0.025936 0.233538" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="laser_frame_1"/>
+</joint>
+
+<joint name="odom_link" type="fixed">
+  <origin xyz="0.222149 0.000936 0.217362" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="odom_frame_1"/>
+</joint>
+
+<joint name="swerve_front_right_link" type="revolute">
+  <origin xyz="0.269529 -0.278957 0.142207" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="swerve_front_right_frame_1"/>
+  <axis xyz="-9e-06 0.0 1.0"/>
+  <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+  <dynamics damping="0.7"/>
+</joint>
+
+<joint name="wheel_front_right_link" type="continuous">
+  <origin xyz="1e-06 -0.05 -0.08" rpy="0 0 0"/>
+  <parent link="swerve_front_right_frame_1"/>
+  <child link="wheel_front_right_frame_1"/>
+  <axis xyz="-0.0 1.0 -0.0"/>
+</joint>
+
+<joint name="swerve_back_right_link" type="revolute">
+  <origin xyz="-0.269794 -0.278957 0.142203" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="swerve_back_right_frame_1"/>
+  <axis xyz="9e-06 -0.0 -1.0"/>
+  <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+  <dynamics damping="0.7"/>
+</joint>
+
+<joint name="wheel_back_right_link" type="continuous">
+  <origin xyz="1e-06 -0.05 -0.08" rpy="0 0 0"/>
+  <parent link="swerve_back_right_frame_1"/>
+  <child link="wheel_back_right_frame_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+</joint>
+
+<joint name="swerve_back_left_link" type="revolute">
+  <origin xyz="-0.269794 0.28083 0.142203" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="swerve_back_left_frame_1"/>
+  <axis xyz="-9e-06 -0.0 1.0"/>
+  <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+  <dynamics damping="0.7"/>
+</joint>
+
+<joint name="wheel_back_left_link" type="continuous">
+  <origin xyz="1e-06 0.05 -0.08" rpy="0 0 0"/>
+  <parent link="swerve_back_left_frame_1"/>
+  <child link="wheel_back_left_frame_1"/>
+  <axis xyz="-0.0 1.0 -0.0"/>
+</joint>
+
+<joint name="swerve_front_left_link" type="revolute">
+  <origin xyz="0.269529 0.28083 0.142207" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="swerve_front_left_frame_1"/>
+  <axis xyz="-9e-06 -0.0 1.0"/>
+  <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+  <dynamics damping="0.7"/>
+</joint>
+
+<joint name="wheel_front_left_link" type="continuous">
+  <origin xyz="1e-06 0.05 -0.08" rpy="0 0 0"/>
+  <parent link="swerve_front_left_frame_1"/>
+  <child link="wheel_front_left_frame_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+</joint>
+
+<transmission name="tran1">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="swerve_front_right_link">
+    <hardwareInterface>EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor1">
+    <hardwareInterface>EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="tran2">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="swerve_front_left_link">
+    <hardwareInterface>EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor2">
+    <hardwareInterface>EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="tran3">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="swerve_back_right_link">
+    <hardwareInterface>EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor3">
+    <hardwareInterface>EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="tran4">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="swerve_back_left_link">
+    <hardwareInterface>EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor4">
+    <hardwareInterface>EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+
+
+
+
+
+</robot>
