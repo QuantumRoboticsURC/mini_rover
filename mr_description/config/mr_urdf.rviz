@@ -6,7 +6,9 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /NormalOdometry1/Shape1
         - /NoisyOdometry1/Shape1
+        - /FilteredOdometry1/Shape1
       Splitter Ratio: 0.5
     Tree Height: 579
   - Class: rviz/Selection
@@ -205,7 +207,7 @@ Visualization Manager:
         Alpha: 1
         Axes Length: 1
         Axes Radius: 0.10000000149011612
-        Color: 255; 25; 0
+        Color: 32; 74; 135
         Head Length: 0.30000001192092896
         Head Radius: 0.10000000149011612
         Shaft Length: 1
@@ -239,13 +241,47 @@ Visualization Manager:
         Alpha: 1
         Axes Length: 1
         Axes Radius: 0.10000000149011612
-        Color: 32; 74; 135
+        Color: 164; 0; 0
         Head Length: 0.30000001192092896
         Head Radius: 0.10000000149011612
         Shaft Length: 1
         Shaft Radius: 0.05000000074505806
         Value: Arrow
       Topic: /mr/noisy_odom
+      Unreliable: false
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: false
+      Enabled: true
+      Keep: 20
+      Name: FilteredOdometry
+      Position Tolerance: 0.10000000149011612
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 0; 255; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1.5
+        Shaft Radius: 0.05000000074505806
+        Value: Arrow
+      Topic: /odometry/filtered
       Unreliable: false
       Value: true
   Enabled: true
@@ -291,10 +327,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6297968626022339
+      Pitch: 1.509796380996704
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.020406723022460938
+      Yaw: 3.800408363342285
     Saved: ~
 Window Geometry:
   Displays:
