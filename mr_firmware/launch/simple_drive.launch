@@ -1,0 +1,5 @@
+<launch>
+
+  	<node name="simple_drive" pkg="mr_firmware" type="simple_drive.py" output="screen"/>
+
+</launch>
