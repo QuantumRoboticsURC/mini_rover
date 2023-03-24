@@ -32,27 +32,27 @@ def control():
     global buttons,axes,Vel_map,Angles_map,estado,r,s,t,theta
     if axes[0]>.5:
         print("Girando sobre eje izquierda")
-        Angles_map[0]=45
-        Angles_map[1]=-45
+        Angles_map[0]=-45
+        Angles_map[1]=45
         Angles_map[2]=45
         Angles_map[3]=-45
         pubA.publish(str(Angles_map))
-        Vel_map[0]=.5
+        Vel_map[0]=-.5
         Vel_map[1]=-.5
-        Vel_map[2]=-.5
+        Vel_map[2]=.5
         Vel_map[3]=.5
         pub.publish(str(Vel_map))
         s=1
     elif axes[0]<-.5:
         print("Girando sobre eje derecha")
-        Angles_map[0]=45
-        Angles_map[1]=-45
+        Angles_map[0]=-45
+        Angles_map[1]=45
         Angles_map[2]=45
         Angles_map[3]=-45
         pubA.publish(str(Angles_map))
-        Vel_map[0]=-.5
+        Vel_map[0]=.5
         Vel_map[1]=.5
-        Vel_map[2]=.5
+        Vel_map[2]=-.5
         Vel_map[3]=-.5
         pub.publish(str(Vel_map))
         s=1
@@ -161,7 +161,7 @@ def control():
                     theta=90
                 else:
                     theta=-90
-            Angles_map=[int(theta),int(theta),-int(theta),-int(theta)]
+            Angles_map=[int(theta),-int(theta),int(theta),-int(theta)]
             pubA.publish(str(Angles_map))
             t=1
         else:
