@@ -5,17 +5,16 @@ from geometry_msgs.msg import Twist
 from std_msgs.msg import *
 from sensor_msgs.msg import Joy
 import time
-import math
+from math import *
 estado=1
 buttons, axes = [0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0]
 Vel_map=[float(0.0),float(0.0),float(0.0),float(0.0)]
 Angles_map=[0,0,0,0]
-Limits_map=[90,-90]
 r=0
 s=0
 t=0
 theta=0
-
+twist = Twist()
 def check_limits():
     global Limits_map, Angles_map
     for i in range(4):
@@ -23,78 +22,121 @@ def check_limits():
             Angles_map[i]=Limits_map[0]
         elif Limits_map[1]>Angles_map[i]:
             Angles_map[i]=Limits_map[1]
+
+def publish():
+    global twist
+    pub.publish(twist)
+def publishAngles():
+    global Angles_map
+    pubA1.publish(Angles_map[0])
+    pubA2.publish(Angles_map[1])
+    pubA3.publish(Angles_map[2])
+    pubA4.publish(Angles_map[3])
             
 def on_joy(data):
-    global buttons, axes
+    global buttons, axes,twist
     buttons = list(data.buttons [:])
     axes = list(data.axes [:])
 def control():
     global buttons,axes,Vel_map,Angles_map,estado,r,s,t,theta
-    if axes[0]>.5:
+    if axes[0]>.3:
+        twist.angular.z=-axes[0]
+        Angles_map=[-0.785,0.785,-0.785,0.785]
         print("Girando sobre eje izquierda")
-        Angles_map[0]=-45
-        Angles_map[1]=45
-        Angles_map[2]=45
-        Angles_map[3]=-45
-        pubA.publish(str(Angles_map))
-        Vel_map[0]=-.5
-        Vel_map[1]=-.5
-        Vel_map[2]=.5
-        Vel_map[3]=.5
-        pub.publish(str(Vel_map))
+        publish()
+        publishAngles()
         s=1
-    elif axes[0]<-.5:
+    elif axes[0]<-.3:
+        twist.angular.z=-axes[0]
+        Angles_map=[-0.785,0.785,-0.785,0.785]
         print("Girando sobre eje derecha")
-        Angles_map[0]=-45
-        Angles_map[1]=45
-        Angles_map[2]=45
-        Angles_map[3]=-45
-        pubA.publish(str(Angles_map))
-        Vel_map[0]=.5
-        Vel_map[1]=.5
-        Vel_map[2]=-.5
-        Vel_map[3]=-.5
-        pub.publish(str(Vel_map))
+        publish()
+        publishAngles()
         s=1
     elif axes[0]==0:
         if s==1:
-            print("Alto giro")
-            Angles_map[0]=0
-            Angles_map[1]=0
-            Angles_map[2]=0
-            Angles_map[3]=0
-            pubA.publish(str(Angles_map))
-            Vel_map[0]=0
-            Vel_map[1]=0
-            Vel_map[2]=0
-            Vel_map[3]=0
             s=0
-            pub.publish(str(Vel_map))
-    if axes[1]>.4 or axes[1]<-.4: 
-        Vel_map[0]=float(axes[1])
-        Vel_map[1]=float(axes[1])
-        Vel_map[2]=float(axes[1])
-        Vel_map[3]=float(axes[1])
+            twist.angular.z=0
+            Angles_map=[0,0,0,0]
+            print("Alto giro")
+            publish()
+            publishAngles()
+### Version 1
+#    if axes[0]>.5:
+#        print("Girando sobre eje izquierda")
+#        Angles_map[0]=pi/4
+#        Angles_map[1]=-pi/4
+#        Angles_map[2]=-pi/4
+#        Angles_map[3]=pi/4
+#        Vel_map[0]=-.5
+#        Vel_map[1]=.5
+#        Vel_map[2]=.5
+#        Vel_map[3]=-.5
+#        publish()
+#        s=1
+#    elif axes[0]<-.5:
+#        print("Girando sobre eje derecha")
+#        Angles_map[0]=pi/4
+#        Angles_map[1]=-pi/4
+#        Angles_map[2]=-pi/4
+#        Angles_map[3]=pi/4
+#        Vel_map[0]=.5
+#       Vel_map[1]=-.5
+#        Vel_map[2]=-.5
+#        Vel_map[3]=.5
+#        publish()
+#        s=1
+#    elif axes[0]==0:
+#        if s==1:
+#            print("Alto giro")
+#            Angles_map[0]=pi/2
+#            Angles_map[1]=pi/2
+#            Angles_map[2]=-pi/2
+#            Angles_map[3]=-pi/2
+#            Vel_map[0]=0
+#            Vel_map[1]=0
+#            Vel_map[2]=0
+#            Vel_map[3]=0
+#            s=0
+#            publish()
+    if axes[1]>.3 or axes[1]<-.3: 
+        twist.linear.x=axes[1]
         print("Adelante o atras")
-        pub.publish(str(Vel_map))
+        publish()
         r=1
     elif axes[1]==0:
         if r==1:
             r=0
-            Vel_map[0]=float(0)
-            Vel_map[1]=float(0)
-            Vel_map[2]=float(0)
-            Vel_map[3]=float(0)
+            twist.linear.x=0
             print("Alto")
-            pub.publish(str(Vel_map))
+            publish()
+    ### Version 1
+    #if axes[1]>.4 or axes[1]<-.4: 
+    #    Vel_map[0]=float(axes[1])
+    #    Vel_map[1]=float(axes[1])
+    #    Vel_map[2]=float(axes[1])
+    #    Vel_map[3]=float(axes[1])
+    #    print("Adelante o atras")
+    #    publish()
+    #    r=1
+    #elif axes[1]==0:
+    #    if r==1:
+    #        r=0
+    #        Vel_map[0]=float(0)
+    #        Vel_map[1]=float(0)
+    #        Vel_map[2]=float(0)
+    #        Vel_map[3]=float(0)
+    #        print("Alto")
+    #        publish()
+    
     if buttons[4]:
-        if Angles_map==[0,0,0,0]:
+        if Angles_map==[pi/2,pi/2,-pi/2,-pi/2]:
             print("Cambio a modo Holonomico ")
             estado=1
     elif buttons[5]:
-        if Angles_map==[0,0,0,0]:
+        if Angles_map==[pi/2,pi/2,-pi/2,-pi/2]:
             print("Cambio a modo no Holonomico ")
-            estado=2
+            estado=2    
     #Verision 1
     #if axes[2]==1:
     #    if estado==1:
@@ -136,44 +178,50 @@ def control():
         if ((axes[2]**2+axes[5]**2)>=.99) and axes[5]>-0.3:
             print("Direccion Holonomica")
             if axes[5]>0:
-                theta=math.atan(axes[2]/axes[5])*180/math.pi
-            else:
-                if axes[2]>0:
-                    theta=90
+                theta=atan(axes[2]/axes[5])
+                if theta<0:
+                    theta+=pi/2
                 else:
-                    theta=-90
-            Angles_map=[int(theta),int(theta),int(theta),int(theta)]
-            pubA.publish(str(Angles_map))
+                    theta=pi/2-theta
+            else:
+                theta=0
+            Angles_map=[theta,theta,-theta,-theta]
+            publishAngles()
             t=1
         else:
             if t==1:
                 theta=0
-                Angles_map=[0,0,0,0]
+                Angles_map=[pi/2,pi/2,-pi/2,-pi/2]
                 t=0
-                pubA.publish(str(Angles_map))
+                publishAngles()
     else:
         if ((axes[2]**2+axes[5]**2)>=.99) and axes[5]>-0.3:
             print("Direccion Holonomica")
             if axes[5]>0:
-                theta=math.atan(axes[2]/axes[5])*180/math.pi
+                theta=atan(axes[2]/axes[5])*180/pi
             else:
                 if axes[2]>0:
                     theta=90
                 else:
                     theta=-90
-            Angles_map=[int(theta),-int(theta),int(theta),-int(theta)]
-            pubA.publish(str(Angles_map))
+            Angles_map=[theta,-theta,theta,-theta]
+            publishAngles()
             t=1
         else:
             if t==1:
                 theta=0
-                Angles_map=[0,0,0,0]
+                Angles_map=[pi/2,pi/2,-pi/2,-pi/2]
                 t=0
-                pubA.publish(str(Angles_map))
+                publishAngles()
 rospy.init_node("drive_teleop")
 rospy.Subscriber("joy",Joy,on_joy)
-pub = rospy.Publisher('Vel', String, queue_size=1)
-pubA= rospy.Publisher('Angles', String, queue_size=1)
+pub=rospy.Publisher('cmd_vel',Twist,queue_size=1)
+pubT=rospy.Publisher('VelyAng', String, queue_size=1)
+#pub = rospy.Publisher('Vel', String, queue_size=1)
+pubA2= rospy.Publisher('mr/swerve_back_left_link_position_controller/command', Float64, queue_size=1)
+pubA4= rospy.Publisher('mr/swerve_back_right_link_position_controller/command', Float64, queue_size=1)
+pubA1= rospy.Publisher('mr/swerve_front_left_link_position_controller/command', Float64, queue_size=1)
+pubA3= rospy.Publisher('mr/swerve_front_right_link_position_controller/command', Float64, queue_size=1)
 rate = rospy.Rate(20)
 print("Hola")
 while not rospy.is_shutdown():
