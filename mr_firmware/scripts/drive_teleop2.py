@@ -175,43 +175,43 @@ def control():
     ###
     #Version 2
         if estado==1:
-        if ((axes[2]**2+axes[5]**2)>=.99) and axes[5]>-0.3:
-            print("Direccion Holonomica")
-            if axes[5]>0:
-                theta=atan(axes[2]/axes[5])
-            else:
-                if axes[2]>0:
-                    theta=pi/2
+            if ((axes[2]**2+axes[5]**2)>=.99) and axes[5]>-0.3:
+                print("Direccion Holonomica")
+                if axes[5]>0:
+                    theta=atan(axes[2]/axes[5])
                 else:
-                    theta=-pi/2
-            Angles_map=[theta,theta,-theta,-theta]
-            publishAngles()
-            t=1
-        else:
-            if t==1:
-                theta=0
-                Angles_map=[0,0,0,0]
-                t=0
+                    if axes[2]>0:
+                        theta=pi/2
+                    else:
+                        theta=-pi/2
+                Angles_map=[theta,theta,-theta,-theta]
                 publishAngles()
-    else:
-        if ((axes[2]**2+axes[5]**2)>=.99) and axes[5]>-0.3:
-            print("Direccion Holonomica")
-            if axes[5]>0:
-                theta=atan(axes[2]/axes[5])
+                t=1
             else:
-                if axes[2]>0:
-                    theta=pi/2
-                else:
-                    theta=-pi/2
-            Angles_map=[theta,-theta,theta,-theta]
-            publishAngles()
-            t=1
+                if t==1:
+                    theta=0
+                    Angles_map=[0,0,0,0]
+                    t=0
+                    publishAngles()
         else:
-            if t==1:
-                theta=0
-                Angles_map=[0,0,0,0]
-                t=0
+            if ((axes[2]**2+axes[5]**2)>=.99) and axes[5]>-0.3:
+                print("Direccion Holonomica")
+                if axes[5]>0:
+                    theta=atan(axes[2]/axes[5])
+                else:
+                    if axes[2]>0:
+                        theta=pi/2
+                    else:
+                        theta=-pi/2
+                Angles_map=[theta,-theta,theta,-theta]
                 publishAngles()
+                t=1
+            else:
+                if t==1:
+                    theta=0
+                    Angles_map=[0,0,0,0]
+                    t=0
+                    publishAngles()
 rospy.init_node("drive_teleop")
 rospy.Subscriber("joy",Joy,on_joy)
 pub=rospy.Publisher('cmd_vel',Twist,queue_size=1)
