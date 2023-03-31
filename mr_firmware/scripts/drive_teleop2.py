@@ -41,14 +41,14 @@ def control():
     global buttons,axes,Vel_map,Angles_map,estado,r,s,t,theta
     if axes[0]>.3:
         twist.angular.z=-axes[0]
-        Angles_map=[-0.785,0.785,-0.785,0.785]
+        Angles_map=[-0.785,0.785,0.785,-0.785]
         print("Girando sobre eje izquierda")
         publish()
         publishAngles()
         s=1
     elif axes[0]<-.3:
         twist.angular.z=-axes[0]
-        Angles_map=[-0.785,0.785,-0.785,0.785]
+        Angles_map=[-0.785,0.785,0.785,-0.785]
         print("Girando sobre eje derecha")
         publish()
         publishAngles()
@@ -174,47 +174,47 @@ def control():
     #        pubA.publish(str(Angles_map))
     ###
     #Version 2
-        if estado==1:
-            if ((axes[2]**2+axes[5]**2)>=.99) and axes[5]>-0.3:
-                print("Direccion Holonomica")
-                if axes[5]>0:
-                    theta=atan(axes[2]/axes[5])
-                else:
-                    if axes[2]>0:
-                        theta=pi/2
-                    else:
-                        theta=-pi/2
-                Angles_map=[theta,theta,-theta,-theta]
-                publishAngles()
-                t=1
+    if estado==1:
+        if ((axes[2]**2+axes[5]**2)>=.99) and axes[5]>-0.3:
+            print("Direccion Holonomica")
+            if axes[5]>0:
+                theta=atan(axes[2]/axes[5])
             else:
-                if t==1:
-                    theta=0
-                    Angles_map=[0,0,0,0]
-                    t=0
-                    publishAngles()
+                if axes[2]>0:
+                   theta=pi/2
+                else:
+                    theta=-pi/2
+            Angles_map=[theta,theta,-theta,-theta]
+            publishAngles()
+            t=1
         else:
-            if ((axes[2]**2+axes[5]**2)>=.99) and axes[5]>-0.3:
-                print("Direccion Holonomica")
-                if axes[5]>0:
-                    theta=atan(axes[2]/axes[5])
-                else:
-                    if axes[2]>0:
-                        theta=pi/2
-                    else:
-                        theta=-pi/2
-                Angles_map=[theta,-theta,theta,-theta]
+            if t==1:
+                theta=0
+                Angles_map=[0,0,0,0]
+                t=0
                 publishAngles()
-                t=1
+    else:
+        if ((axes[2]**2+axes[5]**2)>=.99) and axes[5]>-0.3:
+            print("Direccion No Holonomica")
+            if axes[5]>0:
+                theta=atan(axes[2]/axes[5])
             else:
-                if t==1:
-                    theta=0
-                    Angles_map=[0,0,0,0]
-                    t=0
-                    publishAngles()
+                if axes[2]>0:
+                    theta=pi/2
+                else:
+                    theta=-pi/2
+            Angles_map=[theta,-theta,theta,-theta]
+            publishAngles()
+            t=1
+        else:
+            if t==1:
+                theta=0
+                Angles_map=[0,0,0,0]
+                t=0
+                publishAngles()
 rospy.init_node("drive_teleop")
 rospy.Subscriber("joy",Joy,on_joy)
-pub=rospy.Publisher('cmd_vel',Twist,queue_size=1)
+pub=rospy.Publisher('mr/cmd_vel',Twist,queue_size=1)
 pubT=rospy.Publisher('VelyAng', String, queue_size=1)
 #pub = rospy.Publisher('Vel', String, queue_size=1)
 pubA2= rospy.Publisher('mr/swerve_back_left_link_position_controller/command', Float64, queue_size=1)
