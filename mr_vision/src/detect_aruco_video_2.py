@@ -34,6 +34,7 @@ import math
 from std_msgs.msg import String, Int8, Header
 from sensor_msgs.msg import Image
 from geometry_msgs.msg import Point
+from nav_msgs.msg import Odometry, Pose
 
 
 class ArucoDetector():
@@ -73,16 +74,24 @@ class ArucoDetector():
         self.arucos_mask = np.zeros((self.image_size.height, self.image_size.width, 3), dtype = np.uint8)
         self.arucos_mask_with_distance = np.zeros((self.image_size.height, self.image_size.width), dtype = np.float64)
 
+        # ________ Odom atributes initialization ______    
+        self.robot_position = Point()
+
         # ________ ros atributes initialization ______        
         self.closest_aruco_position_publisher = rospy.Publisher("/closest_aruco_distance", Point, queue_size = 1)
+        self.aruco_from_origin_publisher = rospy.Publisher("/aruco_from_origin", Point, queue_size = 1)
         self.image_pub = rospy.Publisher("/image_detecting", Image, queue_size = 1)
         self.image_aruco_mask = rospy.Publisher("/image_arucos_mask", Image, queue_size = 1)
         self.image_aruco_mask_distance = rospy.Publisher("arucos_mask_with_distance", Image, queue_size = 1)        
+        self.robot_position_subscriber = rospy.Subscriber("/odom/filtered", Odometry, self.robot_odom_callback)
 
         #__________ image ______________
         self.curr_signs_image_msg = Image()
         self.curr_signs_image_msg_2 = Image()
         self.curr_signs_image_msg_3 = Image()
+
+    def robot_odom_callback (self, data):
+        self.robot_point = data.pose.pose.position
 
 
     def draw_arucos(sel, image, corners):
@@ -210,6 +219,7 @@ class ArucoDetector():
                 aruco_corners, aruco_ids = self.get_arucos_info_in_image(self.image_ocv)
                 self.displayed_image_ocv = self.image_ocv.copy()
                 if len(aruco_corners) > 0:
+
                     self.displayed_image_ocv = self.draw_arucos(self.displayed_image_ocv, aruco_corners)                
                     aruco_centers = list(map(self.get_aruco_midpoint, aruco_corners))
 
@@ -217,7 +227,16 @@ class ArucoDetector():
                     closest_aruco_position = self.get_closest_point(centers_meters)
 
                     #closest_aruco_position = self.transform_aruco_midpoint_to_metric_system(closest_aruco_position)                
-                    self.closest_aruco_position_publisher.publish( self.tuple_position_2_ros_position(closest_aruco_position))
+                    aruco_point = self.tuple_position_2_ros_position(closest_aruco_position)
+                    self.closest_aruco_position_publisher.publish( aruco_point)
+                    
+                    #add the position of the robot to the position of the aruco
+                    aruco_point.x += self.robot_point.x
+                    aruco_point.y += self.robot_point.y
+                    aruco_point.z += self.robot_point.z
+
+                    self.aruco_from_origin_publisher.publish(aruco_point)
+                    
 
                 self.curr_signs_image_msg = self.cv2_to_imgmsg(self.displayed_image_ocv, encoding = "bgr8")
                 self.image_pub.publish(self.curr_signs_image_msg)
