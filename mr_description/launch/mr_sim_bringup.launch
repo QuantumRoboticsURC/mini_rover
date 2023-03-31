@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<launch>
+		
+	<include file="$(find mr_description)/launch/mr_gazebo.launch" />
+	
+	<include file="$(find mr_description)/launch/mr_control.launch" />
+
+	<include file="$(find mr_description)/launch/mr_display.launch" />
+
+	<node name="noisy_odom" pkg="mr_firmware" type="noisy_odom.py" output="screen"/>
+
+</launch>

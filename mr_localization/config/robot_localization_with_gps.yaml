@@ -6,8 +6,8 @@ two_d_mode: true
     
 publish_tf: true
     
-odom_frame: summit_xl_a_odom
-base_link_frame: summit_xl_a_base_footprint
+odom_frame: odom
+base_link_frame: base_link
 world_frame: map
 map_frame: map
 
