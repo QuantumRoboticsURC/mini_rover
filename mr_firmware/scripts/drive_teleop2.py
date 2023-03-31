@@ -174,43 +174,42 @@ def control():
     #        pubA.publish(str(Angles_map))
     ###
     #Version 2
-    if estado==1:
+        if estado==1:
         if ((axes[2]**2+axes[5]**2)>=.99) and axes[5]>-0.3:
             print("Direccion Holonomica")
             if axes[5]>0:
                 theta=atan(axes[2]/axes[5])
-                if theta<0:
-                    theta+=pi/2
-                else:
-                    theta=pi/2-theta
             else:
-                theta=0
+                if axes[2]>0:
+                    theta=pi/2
+                else:
+                    theta=-pi/2
             Angles_map=[theta,theta,-theta,-theta]
             publishAngles()
             t=1
         else:
             if t==1:
                 theta=0
-                Angles_map=[pi/2,pi/2,-pi/2,-pi/2]
+                Angles_map=[0,0,0,0]
                 t=0
                 publishAngles()
     else:
         if ((axes[2]**2+axes[5]**2)>=.99) and axes[5]>-0.3:
             print("Direccion Holonomica")
             if axes[5]>0:
-                theta=atan(axes[2]/axes[5])*180/pi
+                theta=atan(axes[2]/axes[5])
             else:
                 if axes[2]>0:
-                    theta=90
+                    theta=pi/2
                 else:
-                    theta=-90
+                    theta=-pi/2
             Angles_map=[theta,-theta,theta,-theta]
             publishAngles()
             t=1
         else:
             if t==1:
                 theta=0
-                Angles_map=[pi/2,pi/2,-pi/2,-pi/2]
+                Angles_map=[0,0,0,0]
                 t=0
                 publishAngles()
 rospy.init_node("drive_teleop")
