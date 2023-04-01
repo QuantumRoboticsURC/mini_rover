@@ -6,12 +6,11 @@
     
 <node pkg="amcl" type="amcl" name="amcl" output="screen">
 
-  <remap from="scan" to="/scan" />
-  <remap from="cmd_vel" to="/cmd_vel"/>
+  <remap from="scan" to="/mr/scan" />
+  <remap from="cmd_vel" to="/mr/cmd_vel"/>
   <remap from="odom" to="/odometry/filtered" />
 
   <!-- Publish scans from best pose at a max of 10 Hz -->
-  <!-- Which model to use, either "diff", "omni", "diff-corrected" or "omni-corrected". -->
   <param name="odom_model_type" value="diff"/>
   <param name="odom_alpha5" value="0.1"/>
   <param name="transform_tolerance" value="0.2" />

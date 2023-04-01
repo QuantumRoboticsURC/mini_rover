@@ -5,8 +5,5 @@
     
     <!-- Start EKF Localization -->
     <include file="$(find mr_localization)/launch/start_ekf_localization.launch" />
-    
-    <!-- Start Move Base -->
-    <include file="$(find mr_navigation)/launch/move_base_map.launch" />
 
 </launch>

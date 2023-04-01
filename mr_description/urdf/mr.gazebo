@@ -112,10 +112,10 @@
     <rightFrontJoint>wheel_front_right_link</rightFrontJoint>
     <leftRearJoint>wheel_back_left_link</leftRearJoint>
     <rightRearJoint>wheel_back_right_link</rightRearJoint>
-    <wheelSeparation>0.4</wheelSeparation>
-    <wheelDiameter>0.215</wheelDiameter>
+    <wheelSeparation>0.55</wheelSeparation>
+    <wheelDiameter>0.057</wheelDiameter>
     <robotBaseFrame>base_link</robotBaseFrame>
-    <torque>20</torque>
+    <torque>1000</torque>
     <topicName>cmd_vel</topicName>
     <broadcastTF>true</broadcastTF>
   </plugin>
@@ -160,7 +160,7 @@
       </noise>
     </ray>
     <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-      <topicName>/scan</topicName>
+      <topicName>/mr/scan</topicName>
       <frameName>laser_frame_1</frameName>
     </plugin>
   </sensor>

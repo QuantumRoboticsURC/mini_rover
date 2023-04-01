@@ -18,7 +18,7 @@ static:
 
 obstacles_laser:
     observation_sources: hokuyo_laser
-    hokuyo_laser: {sensor_frame: laser_frame_1, data_type: LaserScan, clearing: true, marking: true, topic: /zed/scan, inf_is_valid: true}
+    hokuyo_laser: {sensor_frame: laser_frame_1, data_type: LaserScan, clearing: true, marking: true, topic: /mr/scan, inf_is_valid: true}
 
 inflation:
     inflation_radius: 1.0
