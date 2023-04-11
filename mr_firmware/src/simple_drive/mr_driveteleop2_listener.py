@@ -3,8 +3,8 @@
 #Declare libraries
 import rospy
 from lx16a import *
-from math import sin, cos
-from std_msgs.msg import String
+from math import *
+from std_msgs.msg import *
 from geometry_msgs.msg import Twist
 
 
@@ -19,34 +19,48 @@ def my_map(x,in_min,in_max,out_min,out_max):
 def callback(data):
 	
 	# Print the received data
-    
-	info = str(data.data)[1:len(data.data)-1].split(",")
-	servo1.motorMode(1000*int(float(info[0])))
-	servo3.motorMode(1000*int(float(info[1])))
-	servo5.motorMode(1000*int(float(info[2])))
-	servo7.motorMode(1000*int(float(info[3])))
+	servo1.motorMode(int(data.linear.x+data.angular.z*1000))
+	servo3.motorMode(int(data.linear.x+data.angular.z*1000))
+	servo5.motorMode(-int(data.linear.x-data.angular.z*1000))
+	servo7.motorMode(-int(data.linear.x-data.angular.z*1000))
 	print("Vel: ")
-	print(info)
+	print(int((data.linear.x+data.angular.z)*1000))
 		
 def callback2(data):
 	
 	# Print the received data
-    
-	info = str(data.data)[1:len(data.data)-1].split(",")
-	servo2.moveTimeWrite(int(my_map(info[0],-90,90,0,180)))
-	servo4.moveTimeWrite(int(my_map(info[1],-90,90,0,180)))
-	servo6.moveTimeWrite(int(my_map(info[2],-90,90,0,180)))
-	servo8.moveTimeWrite(int(my_map(info[3],-90,90,0,180)))
+	servo2.moveTimeWrite(int(my_map(data,-pi/2,pi/2,0,180)))
 	print("Angles")
-	print(info)			
+	print(data)		
+def callback3(data):
+	
+	# Print the received data
+	servo4.moveTimeWrite(int(my_map(data,-pi/2,pi/2,0,180)))
+	print("Angles")
+	print(data)		
+def callback4(data):
+	
+	# Print the received data
+	servo6.moveTimeWrite(int(my_map(data,-pi/2,pi/2,0,180)))
+	print("Angles")
+	print(data)		
+def callback5(data):
+	
+	# Print the received data
+	servo8.moveTimeWrite(int(my_map(data,-pi/2,pi/2,0,180)))
+	print("Angles")
+	print(int(my_map(data,-pi/2,pi/2,0,180)))			
 
 def program_init():
 	# Init the node
 	rospy.init_node('main', anonymous=True)
 
 	# Subscribe to a topic named "Received Angle" and call the function "callback"
-	rospy.Subscriber("Vel", String, callback)
-	rospy.Subscriber("Angles", String, callback2)
+	rospy.Subscriber("cmd_vel", Twist, callback)
+	rospy.Subscriber("mr/swerve_front_left_link_position_controller/command", Float64, callback2)
+	rospy.Subscriber("mr/swerve_back_left_link_position_controller/command", Float64, callback3)
+	rospy.Subscriber("mr/swerve_front_right_link_position_controller/command", Float64, callback4)
+	rospy.Subscriber("mr/swerve_back_right_link_position_controller/command", Float64, callback5)
 
 
 	#Spin the program
