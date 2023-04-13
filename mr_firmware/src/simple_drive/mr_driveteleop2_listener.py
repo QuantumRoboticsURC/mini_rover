@@ -15,10 +15,12 @@ def my_map(x,in_min,in_max,out_min,out_max):
 
 
 def callback(data):
-	servo1.motorMode(int(data.linear.x+data.angular.z*1000))
-	servo3.motorMode(int(data.linear.x+data.angular.z*1000))
-	servo5.motorMode(-int(data.linear.x-data.angular.z*1000))
-	servo7.motorMode(-int(data.linear.x-data.angular.z*1000))
+	
+	# Print the received data
+	servo1.motorMode(int((data.linear.x+data.angular.z)*1000))
+	servo3.motorMode(int((data.linear.x+data.angular.z)*1000))
+	servo5.motorMode(-int((data.linear.x-data.angular.z)*1000))
+	servo7.motorMode(-int((data.linear.x-data.angular.z)*1000))
 	print("Vel: ")
 	print(int((data.linear.x+data.angular.z)*1000))
 		
