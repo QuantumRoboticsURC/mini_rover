@@ -6,10 +6,8 @@ from lx16a import *
 from math import *
 from std_msgs.msg import *
 from geometry_msgs.msg import Twist
+from numpy import*
 
-
-"""Lets move a motor to a desired position using
-a value (deg) sent by a program in ROS"""
 
 def my_map(x,in_min,in_max,out_min,out_max):
     x = int(x)
@@ -17,8 +15,6 @@ def my_map(x,in_min,in_max,out_min,out_max):
 
 
 def callback(data):
-	
-	# Print the received data
 	servo1.motorMode(int(data.linear.x+data.angular.z*1000))
 	servo3.motorMode(int(data.linear.x+data.angular.z*1000))
 	servo5.motorMode(-int(data.linear.x-data.angular.z*1000))
@@ -27,36 +23,38 @@ def callback(data):
 	print(int((data.linear.x+data.angular.z)*1000))
 		
 def callback2(data):
-	
-	# Print the received data
-	servo2.moveTimeWrite(int(my_map(data,-pi/2,pi/2,0,180)))
+	grados=degrees(data)
+	servo2.moveTimeWrite(int(my_map(grados,-90,90,30,210)))
 	print("Angles")
 	print(data)		
 def callback3(data):
-	
-	# Print the received data
-	servo4.moveTimeWrite(int(my_map(data,-pi/2,pi/2,0,180)))
+	grados=degrees(data)
+	servo4.moveTimeWrite(int(my_map(grados,-90,90,55,235)))
 	print("Angles")
 	print(data)		
 def callback4(data):
-	
-	# Print the received data
-	servo6.moveTimeWrite(int(my_map(data,-pi/2,pi/2,0,180)))
+	grados=data
+	angulo=int(my_map(grados,90,90,72,252))
+	if(angulo>240):
+		angulo=240
+	servo6.moveTimeWrite(angulo)
 	print("Angles")
-	print(data)		
+	print(angulo)		
 def callback5(data):
-	
-	# Print the received data
-	servo8.moveTimeWrite(int(my_map(data,-pi/2,pi/2,0,180)))
+	grados=data
+	angulo=int(my_map(grados,90,90,-40,140))
+	if(angulo<0):
+		angulo=0
+	servo8.moveTimeWrite(angulo)
 	print("Angles")
-	print(int(my_map(data,-pi/2,pi/2,0,180)))			
+	print(angulo)			
 
 def program_init():
 	# Init the node
 	rospy.init_node('main', anonymous=True)
 
 	# Subscribe to a topic named "Received Angle" and call the function "callback"
-	rospy.Subscriber("cmd_vel", Twist, callback)
+	rospy.Subscriber("mr/cmd_vel", Twist, callback)
 	rospy.Subscriber("mr/swerve_front_left_link_position_controller/command", Float64, callback2)
 	rospy.Subscriber("mr/swerve_back_left_link_position_controller/command", Float64, callback3)
 	rospy.Subscriber("mr/swerve_front_right_link_position_controller/command", Float64, callback4)
@@ -67,7 +65,7 @@ def program_init():
 	rospy.spin()
 
 if __name__ == '__main__':
-	print("AAAAAAAAAAAAAAAAAAAAAAAAAAAaa")
+	print("Escuchando")
 	# Select the correct port, otherwise, the program wont continue
 	LX16A.initialize("/dev/ttyUSB0")
 
