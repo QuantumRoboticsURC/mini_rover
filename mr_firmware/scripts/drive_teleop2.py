@@ -28,10 +28,10 @@ def publish():
     pub.publish(twist)
 def publishAngles():
     global Angles_map
-    #pubA1.publish(Angles_map[0])
-    #pubA2.publish(Angles_map[1])
-    #pubA3.publish(Angles_map[2])
-    #pubA4.publish(Angles_map[3])
+    pubA1.publish(Angles_map[0])
+    pubA2.publish(Angles_map[1])
+    pubA3.publish(Angles_map[2])
+    pubA4.publish(Angles_map[3])
             
 def on_joy(data):
     global buttons, axes,twist
@@ -185,14 +185,14 @@ def control():
                 else:
                     theta=-pi/2
             Angles_map=[theta,theta,-theta,-theta]
-            publishAngles()        
+            #publishAngles()        
             t=1
         else:
             if t==1:
                 theta=0
                 Angles_map=[0,0,0,0]
                 t=0
-                publishAngles()
+                #publishAngles()
     else:
         if ((axes[2]**2+axes[5]**2)>=.99) and axes[5]>-0.3:
             print("Direccion No Holonomica")
@@ -204,23 +204,23 @@ def control():
                 else:
                     theta=-pi/2
             Angles_map=[theta,-theta,theta,-theta]
-            publishAngles()
+            #publishAngles()
             t=1
         else:
             if t==1:
                 theta=0
                 Angles_map=[0,0,0,0]
                 t=0
-                publishAngles()
+                #publishAngles()
 rospy.init_node("drive_teleop")
 rospy.Subscriber("joy",Joy,on_joy)
-pub=rospy.Publisher('cmd_vel',Twist,queue_size=1)
+pub=rospy.Publisher('mr/cmd_vel',Twist,queue_size=1)
 #pubT=rospy.Publisher('VelyAng', String, queue_size=1)
 #pub = rospy.Publisher('Vel', String, queue_size=1)
-#pubA2= rospy.Publisher('mr/swerve_back_left_link_position_controller/command', Float64, queue_size=1)
-#pubA4= rospy.Publisher('mr/swerve_back_right_link_position_controller/command', Float64, queue_size=1)
-#pubA1= rospy.Publisher('mr/swerve_front_left_link_position_controller/command', Float64, queue_size=1)
-#pubA3= rospy.Publisher('mr/swerve_front_right_link_position_controller/command', Float64, queue_size=1)
+pubA2= rospy.Publisher('mr/swerve_back_left_link_position_controller/command', Float64, queue_size=1)
+pubA4= rospy.Publisher('mr/swerve_back_right_link_position_controller/command', Float64, queue_size=1)
+pubA1= rospy.Publisher('mr/swerve_front_left_link_position_controller/command', Float64, queue_size=1)
+pubA3= rospy.Publisher('mr/swerve_front_right_link_position_controller/command', Float64, queue_size=1)
 rate = rospy.Rate(20)
 print("Hola")
 while not rospy.is_shutdown():
