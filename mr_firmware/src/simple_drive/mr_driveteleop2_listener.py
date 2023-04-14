@@ -13,43 +13,32 @@ def my_map(x,in_min,in_max,out_min,out_max):
     x = int(x)
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
-
+def angulos(servo,data,min,max):
+    grados=degrees(data.data)
+    angulo=int(my_map(grados,-90,90,min,max))
+    if angulo<240:
+        angulo=240
+    elif angulo>0:
+        angulo=0
+    servo.moveTimeWrite(angulo)
 def callback(data):
 	
 	# Print the received data
-	servo1.motorMode(int((data.linear.x+data.angular.z)*1000))
-	servo3.motorMode(int((data.linear.x+data.angular.z)*1000))
-	servo5.motorMode(-int((data.linear.x-data.angular.z)*1000))
-	servo7.motorMode(-int((data.linear.x-data.angular.z)*1000))
+	servo1.motorMode(-int((data.linear.x+data.angular.z)*1000))
+	servo3.motorMode(-int((data.linear.x+data.angular.z)*1000))
+	servo5.motorMode(int((data.linear.x-data.angular.z)*1000))
+	servo7.motorMode(int((data.linear.x-data.angular.z)*1000))
 	print("Vel: ")
 	print(int((data.linear.x+data.angular.z)*1000))
 		
 def callback2(data):
-	grados=degrees(data)
-	servo2.moveTimeWrite(int(my_map(grados,-90,90,30,210)))
-	print("Angles")
-	print(data)		
+	angulos(servo2,data,30,210)	
 def callback3(data):
-	grados=degrees(data)
-	servo4.moveTimeWrite(int(my_map(grados,-90,90,55,235)))
-	print("Angles")
-	print(data)		
+	angulos(servo4,data,55,235)		
 def callback4(data):
-	grados=data
-	angulo=int(my_map(grados,90,90,72,252))
-	if(angulo>240):
-		angulo=240
-	servo6.moveTimeWrite(angulo)
-	print("Angles")
-	print(angulo)		
+	angulos(servo6,data,72,252)		
 def callback5(data):
-	grados=data
-	angulo=int(my_map(grados,90,90,-40,140))
-	if(angulo<0):
-		angulo=0
-	servo8.moveTimeWrite(angulo)
-	print("Angles")
-	print(angulo)			
+	angulos(servo8,data,-40,180)			
 
 def program_init():
 	# Init the node
