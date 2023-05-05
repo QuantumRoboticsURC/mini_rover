@@ -6,7 +6,7 @@
         
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
         
-        <remap from="scan" to="/mr/scan" />
+        <remap from="scan" to="/zedm/scan" />
         <remap from="cmd_vel" to="/mr/cmd_vel"/>
         <remap from="odom" to="/odometry/filtered" />
         

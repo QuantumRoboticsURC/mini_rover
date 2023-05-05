@@ -8,18 +8,27 @@ publish_tf: true
     
 odom_frame: odom
 base_link_frame: base_link
-world_frame: map
+world_frame: odom
 map_frame: map
 
-odom0: /odom
-odom0_config: [false, false, false,
+odom0: /zedm/zed_nodelet/odom
+odom0_config: [true, true, true, #X, Y, Z
+               false, false, true, #R, P, Y
                false, false, false,
-               true, true, false,
                false, false, true,
-               false, false, false]
-odom0_differential: true
+               true, false, false]
+odom0_differential: false
 
-imu0: /mr/imu/data
+odom1: /odometry/gps
+odom1_config: [true, true, false,
+               false, false, false,
+               false, false, false,
+               false, false, false,
+               false, false, false]
+odom1_differential: false
+
+
+imu0: /imu/data
 imu0_config: [false, false, false,
               false, false, true,
               false, false, false,
@@ -27,13 +36,6 @@ imu0_config: [false, false, false,
               true, false, false]
 imu0_differential: false
 
-odom1: /mr/odometry/gps
-odom1_config: [true, true, false,
-               false, false, false,
-               false, false, false,
-               false, false, false,
-               false, false, false]
-odom1_differential: false
 
 process_noise_covariance": [0.05, 0,    0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
                                               0,    0.05, 0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,

@@ -12,10 +12,10 @@ pub_cmd_3 = rospy.Publisher('mr/swerve_front_right_link_position_controller/comm
 def callback(data):
     rospy.loginfo(rospy.get_caller_id() + "I heard %s", data)
     if (data.linear.x == 0 and data.angular.z != 0):
-        pub_cmd_1.publish(-0.785)
-        pub_cmd_2.publish(0.785)
-        pub_cmd_3.publish(0.785)
-        pub_cmd_4.publish(-0.785)
+        pub_cmd_1.publish(0.785)
+        pub_cmd_2.publish(-0.785)
+        pub_cmd_3.publish(-0.785)
+        pub_cmd_4.publish(0.785)
     else:
         pub_cmd_1.publish(0)
         pub_cmd_2.publish(0)

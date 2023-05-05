@@ -33,8 +33,8 @@ import sys
 import math
 from std_msgs.msg import String, Int8, Header
 from sensor_msgs.msg import Image
-from geometry_msgs.msg import Point
-from nav_msgs.msg import Odometry, Pose
+from geometry_msgs.msg import Point, Pose
+from nav_msgs.msg import Odometry
 
 
 class ArucoDetector():

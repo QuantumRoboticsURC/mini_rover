@@ -23,13 +23,25 @@ def angulos(servo,data,min,max):
     print(angulo)
     servo.moveTimeWrite(angulo)
 def callback(data):
-# Print the received data
-    servo1.motorMode(-int((data.linear.x-data.angular.z)*1000))
-    servo3.motorMode(-int((data.linear.x-data.angular.z)*1000))
-    servo5.motorMode(int((data.linear.x+data.angular.z)*1000))
-    servo7.motorMode(int((data.linear.x+data.angular.z)*1000))
-    print("Vel: ")
-    print(int((data.linear.x+data.angular.z)*1000))
+	
+	# Print the received data
+	if (int(data.linear.x+data.angular.z)*2000<=1000) and servo1.motorMode(-int((data.linear.x-data.angular.z)*1000))
+                servo3.motorMode(-int((data.linear.x-data.angular.z)*1000))
+                servo5.motorMode(int((data.linear.x+data.angular.z)*1000))
+                servo7.motorMode(int((data.linear.x+data.angular.z)*1000))
+:
+		servo1.motorMode(-int((data.linear.x-data.angular.z)*2000))
+		servo3.motorMode(-int((data.linear.x-data.angular.z)*2000))
+		servo5.motorMode(int((data.linear.x+data.angular.z)*2000))
+		servo7.motorMode(int((data.linear.x+data.angular.z)*2000))
+	else:
+		servo1.motorMode(1000)
+		servo3.motorMode(1000)
+		servo5.motorMode(1000)
+		servo7.motorMode(1000)
+
+	print("Vel: ")
+	print(int((data.linear.x+data.angular.z)*1000))
 		
 def callback2(data):
 	angulos(servo2,data,30,210)	
@@ -57,7 +69,7 @@ def program_init():
 if __name__ == '__main__':
 	print("Escuchando")
 	# Select the correct port, otherwise, the program wont continue
-	LX16A.initialize("/dev/ttyUSB1")
+	LX16A.initialize("/dev/controler")
 
 	# Define the servos, remember you had to set the ID before.
 	servo1 = LX16A(1)

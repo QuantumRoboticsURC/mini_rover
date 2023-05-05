@@ -6,7 +6,6 @@
     <param name="yaw_offset" value="0"/>
     <param name="zero_altitude" value="true"/>
     
-    
     <param name="broadcast_utm_transform" value="false"/>
     <param name="publish_filtered_gps" value="false"/>
 
@@ -15,9 +14,9 @@
     <param name="wait_for_datum" value="false"/>
     
 
-    <remap from="/mr/imu/data" to="/imu/data" />
-    <remap from="/gps/fix" to="/gps/fix" />
-    <remap from="/odometry/filtered" to="/odom" />
+    <remap from="/imu/data" to="/imu/data" />
+    <remap from="/gps/fix" to="/ublox/fix" />
+    <remap from="/odometry/filtered" to="/zedm/zed_nodelet/odom" />
 
   </node>
 

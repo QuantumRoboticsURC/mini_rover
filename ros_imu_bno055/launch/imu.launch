@@ -1,15 +1,14 @@
 <?xml version="1.0"?> 
 <launch>
 
-    <arg name="serial_port" default="/dev/ttyUSB0" />
-    <arg name="frame_id" default="map" />
+    <arg name="serial_port" default="/dev/imu" />
+    <arg name="frame_id" default="base_link" />
     <arg name="operation_mode" default="NDOF_FMC_OFF"/>
     <arg name="oscillator" default="INTERNAL" />
     <arg name="reset_orientation" default="true" />
     <arg name="frequency" default="50" /> 
     <arg name="use_magnetometer" default="true" />
     <arg name="use_temperature" default="false" /> 
-
 
     <node pkg="ros_imu_bno055" type="imu_ros.py" name="ros_imu_bno055_node" output="screen">
         <param name="serial_port" value="$(arg serial_port)" />

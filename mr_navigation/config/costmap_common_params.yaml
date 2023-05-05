@@ -9,4 +9,4 @@ cost_scaling_factor: 0.5
 
 map_type: costmap
 observation_sources: scan
-scan: {sensor_frame: laser_frame_1, data_type: LaserScan, clearing: true, marking: true, topic: /mr/scan, inf_is_valid: true}
+scan: {sensor_frame: base_link, data_type: LaserScan, clearing: true, marking: true, topic: /zedm/scan, inf_is_valid: true}
